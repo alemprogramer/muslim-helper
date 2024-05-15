@@ -13,10 +13,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
         }
         .container {
-            max-width: 400px;
+            width: 100%;
             padding: 20px;
             background-color: #fff;
             border-radius: 5px;
@@ -40,15 +40,16 @@
             background: linear-gradient(to right, #ffffff, #f2f2f2); /* Gradient background */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adding a subtle shadow */
             display: flex;
-            justify-content: space-between; /* Aligning colon to the middle */
+            justify-content:  space-evenly; /* Aligning colon to the middle */
             align-items: center; /* Centering the text vertically */
         }
         .prayer-name {
             text-align: center; /* Centering prayer names */
-            flex: 1; /* Expanding to take up remaining space */
+            /* flex: 1; Expanding to take up remaining space */
         }
         .prayer-time span {
             margin-left: 10px;
+            /* flex: .5 */
         }
         .fajr { /* Color for Fajr time */
             color: #1abc9c;
@@ -86,6 +87,7 @@
         .buttons-container {
             display: flex;
             margin-top: 20px; 
+            justify-content: space-evenly;
             
         }
         .button {
@@ -99,7 +101,7 @@
         }
 
         .all-time{
-            
+            display: none;
         }
     </style>
 </head>
