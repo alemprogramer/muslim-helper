@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prayer Times</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left; /* Aligning text to left */
+        }
+        h1 {
+            color: #fff; /* Setting text color to white */
+            text-align: center; /* Centering the heading */
+            padding: 10px 0; /* Adding padding for better visibility */
+            border-radius: 5px; /* Adding border radius */
+            background: linear-gradient(to right, #1abc9c, #3498db, #9b59b6, #e67e22, #e74c3c, #1abc9c); /* Gradient background */
+            -webkit-background-clip: text; /* Ensuring text is transparent */
+            -webkit-text-fill-color: transparent; /* Hiding text color */
+            margin-bottom: 20px; /* Adding margin for better spacing */
+        }
+        .prayer-time {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 25px;
+            background: linear-gradient(to right, #ffffff, #f2f2f2); /* Gradient background */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adding a subtle shadow */
+            display: flex;
+            justify-content: space-between; /* Aligning colon to the middle */
+            align-items: center; /* Centering the text vertically */
+        }
+        .prayer-name {
+            text-align: center; /* Centering prayer names */
+            flex: 1; /* Expanding to take up remaining space */
+        }
+        .prayer-time span {
+            margin-left: 10px;
+        }
+        .fajr { /* Color for Fajr time */
+            color: #1abc9c;
+        }
+        .sunrise { /* Color for Sunrise time */
+            color: #2ecc71;
+        }
+        .dhuhr { /* Color for Dhuhr time */
+            color: #3498db;
+        }
+        .asr { /* Color for Asr time */
+            color: #9b59b6;
+        }
+        .sunset { /* Color for Sunset time */
+            color: #f39c12;
+        }
+        .maghrib { /* Color for Maghrib time */
+            color: #e67e22;
+        }
+        .isha { /* Color for Isha time */
+            color: #e74c3c;
+        }
+        .imsak { /* Color for Imsak time */
+            color: #8e44ad;
+        }
+        .midnight { /* Color for Midnight time */
+            color: #34495e;
+        }
+        .firstthird { /* Color for Firstthird time */
+            color: #2c3e50;
+        }
+        .lastthird { /* Color for Lastthird time */
+            color: #7f8c8d;
+        }
+        .buttons-container {
+            display: flex;
+            margin-top: 20px; 
+            
+        }
+        .button {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            color: black; /* Setting text color */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            background:linear-gradient(to right, #9ad4c9, #8aadc5, );
+        }
+
+        .all-time{
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Prayer Times</h1>
+        <div class="buttons-container">
+            <button class="button prayer-time" onclick="showDefaultTimes()">Default Times</button>
+            <button class="button prayer-time" onclick="showAllTimes()">All Times</button>
+        </div>
+        <div class="prayer-time fajr">
+            <div class="prayer-name"><strong>Fajr:</strong></div>
+            <span id="fajrTime"></span>
+        </div>
+        <div class="prayer-time sunrise all-time">
+            <div class="prayer-name"><strong>Sunrise:</strong></div>
+            <span id="sunriseTime"></span>
+        </div>
+        <div class="prayer-time dhuhr">
+            <div class="prayer-name"><strong>Dhuhr:</strong></div>
+            <span id="dhuhrTime"></span>
+        </div>
+        <div class="prayer-time asr">
+            <div class="prayer-name"><strong>Asr:</strong></div>
+            <span id="asrTime"></span>
+        </div>
+        <div class="prayer-time sunset all-time">
+            <div class="prayer-name "><strong>Sunset:</strong></div>
+            <span id="sunsetTime"></span>
+        </div>
+        <div class="prayer-time maghrib">
+            <div class="prayer-name"><strong>Maghrib:</strong></div>
+            <span id="maghribTime"></span>
+        </div>
+        <div class="prayer-time isha">
+            <div class="prayer-name"><strong>Isha:</strong></div>
+            <span id="ishaTime"></span>
+        </div>
+        <div class="prayer-time midnight all-time">
+            <div class="prayer-name"><strong>Midnight:</strong></div>
+            <span id="midnightTime"></span>
+        </div>
+        <div class="prayer-time firstthird all-time">
+            <div class="prayer-name"><strong>First Third:</strong></div>
+            <span id="firstthirdTime"></span>
+        </div>
+        <div class="prayer-time lastthird all-time">
+            <div class="prayer-name"><strong>Last Third:</strong></div>
+            <span id="lastthirdTime"></span>
+        </div>
+        
+    </div>
+
+    <script>
+        // Get current date
+        const currentDate = new Date();
+        
+        // Format the date as "dd-mm-yyyy"
+        const formattedDate = ('0' + currentDate.getDate()).slice(-2) + '-' + ('0' + (currentDate.getMonth() + 1)).slice(-2) + '-' + currentDate.getFullYear();
+
+        // Fetching data from API
+        fetch(`https://api.aladhan.com/v1/timingsByAddress/${formattedDate}?address=Dhaka`)
+            .then(response => response.json())
+            .then(data => {
+                // Extracting prayer times from API response
+                const timings = data.data.timings;
+
+                // Function to convert 24-hour format to 12-hour format
+                const convertTo12HourFormat = (time) => {
+                    const [hours, minutes] = time.split(':');
+                    const ampm = hours >= 12 ? 'PM' : 'AM';
+                    const twelveHourFormat = (hours % 12 || 12) + ':' + minutes + ' ' + ampm;
+                    return twelveHourFormat;
+                };
+
+                // Updating HTML with prayer times including AM/PM
+                document.getElementById('fajrTime').innerText = convertTo12HourFormat(timings.Fajr);
+                document.getElementById('sunriseTime').innerText = convertTo12HourFormat(timings.Sunrise);
+                document.getElementById('dhuhrTime').innerText = convertTo12HourFormat(timings.Dhuhr);
+                document.getElementById('asrTime').innerText = convertTo12HourFormat(timings.Asr);
+                document.getElementById('sunsetTime').innerText = convertTo12HourFormat(timings.Sunset);
+                document.getElementById('maghribTime').innerText = convertTo12HourFormat(timings.Maghrib);
+                document.getElementById('ishaTime').innerText = convertTo12HourFormat(timings.Isha);
+                document.getElementById('midnightTime').innerText = convertTo12HourFormat(timings.Midnight);
+                document.getElementById('firstthirdTime').innerText = convertTo12HourFormat(timings.Firstthird);
+                document.getElementById('lastthirdTime').innerText = convertTo12HourFormat(timings.Lastthird);
+                showDefaultTimes()
+            })
+            .catch(error => console.error('Error fetching prayer times:', error));
+
+        // Function to show default prayer times
+        function showDefaultTimes() {
+            document.querySelectorAll('.all-time').forEach(element => {
+                element.style.display = 'none';
+            });
+        }
+
+        // Function to show all prayer times
+        function showAllTimes() {
+            document.querySelectorAll('.all-time').forEach(element => {
+                element.style.display = 'flex';
+            });
+        }
+    </script>
+</body>
+</html>
