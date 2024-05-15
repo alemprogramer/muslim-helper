@@ -89,7 +89,7 @@
         .buttons-container {
             display: flex;
             margin-top: 20px; 
-            justify-content: space-evenly;
+            justify-content: space-around;
             
         }
         .button {
@@ -105,11 +105,18 @@
         .all-time{
             display: none;
         }
+        .address{
+            display: flex;
+            justify-content: center;
+            font-size: small;
+            color:#7f8c8d
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Prayer Times</h1>
+        <p class="address" id="address"></p>
         <div class="buttons-container">
             <button class="button prayer-time" onclick="showDefaultTimes()">Default Times</button>
             <button class="button prayer-time" onclick="showAllTimes()">All Times</button>
@@ -164,8 +171,41 @@
         // Format the date as "dd-mm-yyyy"
         const formattedDate = ('0' + currentDate.getDate()).slice(-2) + '-' + ('0' + (currentDate.getMonth() + 1)).slice(-2) + '-' + currentDate.getFullYear();
 
+        //get city name
+        // Get user's city using Geolocation API
+        function getCityName() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(async function(position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+
+                    // Fetching city name using latitude and longitude
+                    const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`);
+                    const data = await response.json();
+                    console.log("🚀 ~ navigator.geolocation.getCurrentPosition ~ data:", data)
+                    const city = data.locality;
+                    const country = data.countryName;
+                    
+                    document.getElementById('address').innerText = `${city}, ${country}`;
+                    // Setting the city name dynamically
+                    // document.getElementById('cityName').innerText = city;
+                    prayerTime(city)
+                });
+            } else {
+                prayerTime(Dhaka);
+                console.error("Geolocation is not supported by this browser.");
+            }
+        }
+
+        // Call the function to get the city name when the page loads
+        window.onload = function() {
+            getCityName();
+        };
+
+
         // Fetching data from API
-        fetch(`https://api.aladhan.com/v1/timingsByAddress/${formattedDate}?address=Dhaka`)
+        function prayerTime(address){
+            fetch(`https://api.aladhan.com/v1/timingsByAddress/${formattedDate}?address=${address}`)
             .then(response => response.json())
             .then(data => {
                 // Extracting prayer times from API response
@@ -193,6 +233,7 @@
                 showDefaultTimes()
             })
             .catch(error => console.error('Error fetching prayer times:', error));
+        }
 
         // Function to show default prayer times
         function showDefaultTimes() {
