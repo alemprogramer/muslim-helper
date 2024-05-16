@@ -1,0 +1,106 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 65vh;
+    padding:4%;
+}
+.container {
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: left; /* Aligning text to left */
+    
+}
+h1 {
+    color: #fff; /* Setting text color to white */
+    text-align: center; /* Centering the heading */
+    padding: 10px 0; /* Adding padding for better visibility */
+    border-radius: 5px; /* Adding border radius */
+    background: linear-gradient(to right, #1abc9c, #3498db, #9b59b6, #e67e22, #e74c3c, #1abc9c); /* Gradient background */
+    -webkit-background-clip: text; /* Ensuring text is transparent */
+    -webkit-text-fill-color: transparent; /* Hiding text color */
+    margin-bottom: 20px; /* Adding margin for better spacing */
+}
+.prayer-time {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 25px;
+    background: linear-gradient(to right, #ffffff, #f2f2f2); /* Gradient background */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adding a subtle shadow */
+    display: flex;
+    justify-content:  space-evenly; /* Aligning colon to the middle */
+    align-items: center; /* Centering the text vertically */
+}
+.prayer-name {
+    text-align: center; /* Centering prayer names */
+    /* flex: 1; Expanding to take up remaining space */
+}
+.prayer-time span {
+    margin-left: 10px;
+    /* flex: .5 */
+}
+.fajr { /* Color for Fajr time */
+    color: #1abc9c;
+}
+.sunrise { /* Color for Sunrise time */
+    color: #2ecc71;
+}
+.dhuhr { /* Color for Dhuhr time */
+    color: #3498db;
+}
+.asr { /* Color for Asr time */
+    color: #9b59b6;
+}
+.sunset { /* Color for Sunset time */
+    color: #f39c12;
+}
+.maghrib { /* Color for Maghrib time */
+    color: #e67e22;
+}
+.isha { /* Color for Isha time */
+    color: #e74c3c;
+}
+.imsak { /* Color for Imsak time */
+    color: #8e44ad;
+}
+.midnight { /* Color for Midnight time */
+    color: #34495e;
+}
+.firstthird { /* Color for Firstthird time */
+    color: #2c3e50;
+}
+.lastthird { /* Color for Lastthird time */
+    color: #7f8c8d;
+}
+.buttons-container {
+    display: flex;
+    margin-top: 20px; 
+    justify-content: space-around;
+    
+}
+.button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    color: black; /* Setting text color */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background:linear-gradient(to right, #9ad4c9, #8aadc5, );
+}
+
+.all-time{
+    display: none;
+}
+.address{
+    display: flex;
+    justify-content: center;
+    font-size: small;
+    color:#7f8c8d
+}
