@@ -3,7 +3,7 @@
     "short_name":"PT",
     "start_url":"index.html",
     "display":"standalone",
-    "background_color":"#5900b3",
+    "background_color":"#E5D8D4",
     "theme_color":"black",
     "scope": ".",
     "description":"This is a muslim helper app.",
