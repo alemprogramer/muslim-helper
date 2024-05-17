@@ -42,13 +42,13 @@
             <div class="prayer-name"><strong>Isha:</strong></div>
             <span id="Isha"></span>
         </div>
-        <div class="prayer-time midnight all-time">
-            <div class="prayer-name"><strong>Midnight:</strong></div>
-            <span id="Midnight"></span>
-        </div>
         <div class="prayer-time firstthird all-time">
             <div class="prayer-name"><strong>First Third:</strong></div>
             <span id="Firstthird"></span>
+        </div>
+        <div class="prayer-time midnight all-time">
+            <div class="prayer-name"><strong>Midnight:</strong></div>
+            <span id="Midnight"></span>
         </div>
         <div class="prayer-time lastthird all-time">
             <div class="prayer-name"><strong>Last Third:</strong></div>
@@ -62,5 +62,16 @@
     </div>
 
 <script type="text/javascript" src="./index.js"></script>
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js').then(registration => {
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }, error => {
+                console.log('ServiceWorker registration failed: ', error);
+            });
+        });
+    }
+</script>
 </body>
 </html>
