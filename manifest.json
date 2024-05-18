@@ -1,6 +1,6 @@
 {
     "name":"Prayer Times",
-    "short_name":"PT",
+    "short_name":"Prayer Times",
     "start_url":"index.html",
     "display":"standalone",
     "background_color":"#E5D8D4",
