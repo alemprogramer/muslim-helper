@@ -15,7 +15,7 @@ const convertTo12HourFormat = (time,key) => {
 if(data && address && date == currentDate.getDate() + '~' + currentDate.getDay()){
     console.log('have');
     data = JSON.parse(data);
-    document.getElementById('address').innerText = address;
+    document.getElementById('address').innerHTML = `<i class="fa-solid fa-location-dot"></i> &nbsp;${address}` ;
     for(key in data){
         document.getElementById(key).innerText = convertTo12HourFormat(data[key],key);
     }
