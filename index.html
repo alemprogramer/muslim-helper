@@ -8,6 +8,7 @@
    
 </head>
 <body>
+    <button id="installButton" style="display: none;">Install App</button>
     <div class="container">
         <h1>Prayer Times</h1>
         <p class="address" id="address"></p>
@@ -87,6 +88,41 @@
     //         });
     //     });
     // }
+
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+
+  // Show your custom install prompt
+  showInstallPromotion();
+});
+
+function showInstallPromotion() {
+  const installButton = document.getElementById('installButton');
+  installButton.style.display = 'block';
+
+  installButton.addEventListener('click', () => {
+    installButton.style.display = 'none';
+    deferredPrompt.prompt();
+
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+      } else {
+        console.log('User dismissed the install prompt');
+      }
+      deferredPrompt = null;
+    });
+  });
+}
+
+window.addEventListener('appinstalled', () => {
+  console.log('PWA was installed');
+  // Hide the install button or show a thank you message
+});
+
  </script>
 <script type="text/javascript" src="./index.js"></script>
 
