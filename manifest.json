@@ -9,12 +9,12 @@
     "description":"This is a muslim helper app.",
     "icons":[
     {
-    "src":"images/ficon-192x192.png",                     
+    "src":"images/prayer-time-192x192.png",                     
     "sizes":"192x192",
     "type":"image/png"
     },
     {
-    "src":"images/main-icon.png",
+    "src":"images/prayer-timers-512x512.png",
     "sizes":"512x512",
     "type":"image/png"
     }
